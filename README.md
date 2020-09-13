@@ -1,0 +1,2 @@
+# GoogleSheetParcer
+Requires Newtons  Json

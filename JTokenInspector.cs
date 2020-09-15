@@ -19,6 +19,47 @@ namespace QuizCannersUtilities
     public static class QcJsonParsing
     {
 
+
+        public static void DecodeList_Indexed<T>(this QcGoogleSheetParcer parser, List<T> list, bool ignoreErrors = true) where T : IJObjectCustom, IGotIndex, new()
+        {
+            var token = parser.GetJToken();
+
+            if (token != null)
+            {
+                var enm = DecodeCollection(token);
+
+                foreach (var tok in enm)
+                {
+                    var el = new T();
+
+                    if (ignoreErrors)
+                    {
+                        try
+                        {
+                            el.Decode(tok);
+
+                            if (el.IndexForPEGI != -1)
+                                list.AddOrReplaceByIGotIndex(el);
+                        }
+                        catch (Exception ex)
+                        {
+                            Debug.LogError("[{0}] ".F(el.GetNameForInspector())  + ex.ToString());
+                        }
+                    }
+                    else
+                    {
+                        el.Decode(tok);
+
+                        if (el.IndexForPEGI != -1)
+                            list.AddOrReplaceByIGotIndex(el);
+                    }
+
+                }
+            }
+            else
+                Debug.LogError("No Token");
+        }
+
         public static bool IsNullOrEmpty(this JToken token)
         {
             if (token == null)

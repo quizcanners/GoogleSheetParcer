@@ -23,7 +23,34 @@ namespace QuizCannersUtilities
     {
         [SerializeField] private string editUrl = "https://docs.google.com/spreadsheets/d/XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/edit#gid=0";
         [SerializeField] private string url = "https://docs.google.com/spreadsheets/d/e/XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/pub?";
+
         [SerializeField] public List<SheetPage> pages = new List<SheetPage>();
+        [SerializeField] private int _selectedPage = 0;
+
+
+        public SheetPage SelectedPage
+        {
+            get
+            {
+                return pages.TryGet(_selectedPage);
+            }
+            set
+            {
+                if (value == null)
+                    return;
+
+                var index = pages.IndexOf(value);
+                if (index == -1)
+                {
+                    pages.Add(value);
+                    _selectedPage = pages.Count - 1;
+                }
+                else
+                    _selectedPage = index;
+
+
+            }
+        }
 
 
         [Serializable] 
@@ -48,7 +75,7 @@ namespace QuizCannersUtilities
 
         [NonSerialized] private CsvReader reader;
 
-        [NonSerialized] public string jsonText;
+        [NonSerialized] private string jsonText;
         
         [NonSerialized] private JToken token;
 
@@ -136,8 +163,7 @@ namespace QuizCannersUtilities
         #region Inspector
         private int _inspectedStuff = -1;
 
-        [SerializeField] private int _selectedPage = 0;
-        
+
         public bool Inspect()
         {
             var changed = false;

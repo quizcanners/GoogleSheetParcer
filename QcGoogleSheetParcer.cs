@@ -32,6 +32,7 @@ namespace QuizCannersUtilities
         {
             get
             {
+                _selectedPage = Mathf.Min(_selectedPage, pages.Count - 1);
                 return pages.TryGet(_selectedPage);
             }
             set

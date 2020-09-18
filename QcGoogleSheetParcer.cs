@@ -26,8 +26,7 @@ namespace QuizCannersUtilities
 
         [SerializeField] public List<SheetPage> pages = new List<SheetPage>();
         [SerializeField] private int _selectedPage = 0;
-
-
+        
         public SheetPage SelectedPage
         {
             get
@@ -52,8 +51,7 @@ namespace QuizCannersUtilities
 
             }
         }
-
-
+        
         [Serializable] 
         public class  SheetPage : IGotDisplayName, IPEGI_ListInspect
         {
@@ -70,8 +68,7 @@ namespace QuizCannersUtilities
 
             public string NameForDisplayPEGI() => pageName;
         }
-
-
+        
         [NonSerialized] private UnityWebRequest request;
 
         [NonSerialized] private CsvReader reader;
@@ -159,12 +156,10 @@ namespace QuizCannersUtilities
                 Debug.LogError("Couldn't Read");
 
         }
-
-
+        
         #region Inspector
         private int _inspectedStuff = -1;
-
-
+        
         public bool Inspect()
         {
             var changed = false;
@@ -251,7 +246,6 @@ namespace QuizCannersUtilities
 
             return changed;
         }
-
         #endregion
 
         private string ToJson(CsvReader csv)

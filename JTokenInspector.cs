@@ -18,8 +18,6 @@ namespace QuizCannersUtilities
 
     public static class QcJsonParsing
     {
-
-
         public static void DecodeList_Indexed<T>(this QcGoogleSheetParcer parser, List<T> list, bool ignoreErrors = true) where T : IJObjectCustom, IGotIndex, new()
         {
             var token = parser.GetJToken();
@@ -122,8 +120,6 @@ namespace QuizCannersUtilities
                 obj.Decode(value.Key, value.Value);
             }
         }
-
-  
     }
 
     public class JTokenInspector
